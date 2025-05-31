@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<style>
+    #component-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .clonedElement {
+        background-color: #f9c74f;
+        padding: 20px;
+        border-radius: 10px;
+        width: 200px;
+        text-align: center;
+        cursor: move;
+        margin: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    .clonedElement p {
+        margin: 0 0 10px;
+    }
+
+    .delete-btn {
+        background-color: transparent;
+        width: 10px;
+        height: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+    }
+
+    .delete-btn:hover {
+        color: rgb(59, 212, 100);
+    }
+    #workspace {
+    min-height: 500px;
+    border: 2px dashed #aaa;
+    padding: 20px;
+    margin-top: 20px;
+    position: relative;
+    }
+
+</style>
+
+<body>
+    <div id="component-container">
+        <div class="clonedElement" id="container" style="background-color: red; color: aquamarine; border: 2px solid black;"
+            onclick="cloneElement('container', 'workspace')">
+            <li>forever</li>
+            <p>Repeat</p>
+        </div>
+        <div class="clonedElement" id="container1" style="background-color: rgb(191, 0, 255); color: rgb(0, 0, 0);"
+            onclick="cloneElement('container1', 'workspace')">
+            <li>forever</li>
+            <p>Repeat</p>
+        </div>
+    </div>
+    <div id="workspace" style="border: 2px dotted yellowgreen; color: #000; min-height: 100vh;"></div>
+</body>
+<script>
+    function cloneElement(originalElement, workPlace) {
+        const element = document.getElementById(originalElement);
+        const clonedElement = document.createElement(element.tagName);
+
+        for (let attr of element.attributes) {
+            clonedElement.setAttribute(attr.name, attr.value, attr.style = "top: 50px; left: 50px; position:absolute;");
+            clonedElement.setAttribute("draggable","true");
+            clonedElement.onclick = null
+        }
+
+        clonedElement.innerHTML = element.innerHTML;
+        const work = document.getElementById("workspace");
+        const newElement = work.appendChild(clonedElement);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('delete-btn');
+        deleteBtn.innerHTML = "<span id='close' class='material-symbols-outlined'>close</span>";
+        deleteBtn.addEventListener('click', function () {
+            clonedElement.remove();
+        });
+        clonedElement.appendChild(deleteBtn);
+        // return clonedElement;
+
+
+        function makeDraggable(clonedElement) {
+            clonedElement.addEventListener('mousedown', function (e) {
+                const rect = clonedElement.getBoundingClientRect();
+                const offsetX = e.clientX - rect.left;
+                const offsetY = e.clientY - rect.top;
+
+                function onMouseMove(event) {
+                    clonedElement.style.left = event.pageX - offsetX + 'px';
+                    clonedElement.style.top = event.pageY - offsetY + 'px';
+                }
+
+                function onMouseUp() {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    document.removeEventListener('mouseup', onMouseUp);
+                }
+
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            });
+        }
+        makeDraggable(newElement);
+    }
+</script>
+
+</html>

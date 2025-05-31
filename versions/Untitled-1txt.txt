@@ -1,0 +1,110 @@
+ // Require the File System (fs) module
+const fs = require('fs');
+
+// Define a 2D array
+const array2D = arrwithIdandTop;
+
+// Function to convert 2D array to text format (string)
+function convertArrayToText(arr) {
+    return arr.map(row => row.join(' ')).join('\n');
+}
+
+// Convert the 2D array to a string
+const arrayText = convertArrayToText(array2D);
+
+// Specify the path where you want to store the text file
+const filePath = './data.txt';
+
+// Write the text content to a .txt file
+fs.writeFile("./", arrayText, (err) => {
+    if (err) {
+        return console.error('Error writing file:', err);
+    }
+    console.log('File written successfully to', filePath);
+});
+
+
+
+
+
+//   fetch('./back.py', {
+//     method: 'POST', // HTTP method
+//     headers: {
+//         'Content-Type': 'application/json' // Set the content type to JSON
+//     },
+//     body: JSON.stringify(data) // Convert JS array to JSON
+// })
+// .then(response => response.json()) // Parse JSON response
+// .then(data => {
+//     console.log('Success:', data);
+// })
+// .catch((error) => {
+//     console.error('Error:', error);
+// });
+}
+
+  // function removeRepeatedIds(arr) {
+  //   for (let i = arr.length - 1; i >= 0; i--) {
+  //     for (let j = i - 1; j >= 0; j--) { 
+  //       if (arr[i][0] === arr[j][0]) {
+  //         arr.splice(j, 1);
+  //         i--;
+  //       }
+  //     }
+  //   }
+  //   return arr;
+  // }
+  // const idRfinedArray = removeRepeatedIds(arrwithIdandTop);
+
+  // function sortByTop(array) {
+  //   return array.sort(function(a, b) {
+  //     return a[1] - b[1];
+  //   });
+  // }
+
+  // const sortedArray = sortByTop(idRfinedArray);
+
+  // function processSortedArray(sortedArray) {
+
+  //   // Function to remove integers from the end of the string
+  //   function removeIntegerFromEnd(str) {
+  //     // Helper function to get string length without using length property
+  //     function getStringLength(string) {
+  //       let count = 0;
+  //       for (let char of string) {
+  //         count++;
+  //       }
+  //       return count;
+  //     }
+  
+  //     // Find the length of the string
+  //     const length = getStringLength(str);
+  
+  //     // Iterate backward to find the first non-digit character
+  //     let i = length - 1;
+  //     while (i >= 0 && /\d/.test(str.charAt(i))) {
+  //       i--; // Keep moving left if current character is a digit
+  //     }
+  
+  //     // Return the substring without the trailing digits
+  //     return str.substring(0, i + 1);
+  //   }
+  
+  //   // Process the sortedArray to remove integers from the end of second element in each array
+  //   for (let i = 0; i < sortedArray.length; i++) {
+  //     const originalId = removeIntegerFromEnd(sortedArray[i][1]);
+  //     sortedArray[i][1] = originalId;
+  //   }
+  
+  //   // Concatenate the 1st and 3rd elements of each sub-array into a string
+  //   let str = "";
+  //   for (let i = 0; i < sortedArray.length; i++) {
+  //     str = str.concat(sortedArray[i][0]);
+  //     str = str.concat(sortedArray[i][2]);
+  //   }
+  
+  //   return str;
+  // }
+  // console.log(processSortedArray(sortedArray));
+  
+// }

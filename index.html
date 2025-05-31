@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PlayNCode</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    <!-- <script src="script1.js"></script> -->
+</head>
+
+<body>
+    <header>
+        <div>
+            <span>{-_-}</span>
+            <span>File</span>
+            <span>Edit</span>
+            <span>View</span>
+            <span>Help</span>
+        </div>
+        <div class="window-control-button">
+            <button id="minimize">_</button>
+            <button id="maximize">[ ]</button>
+            <button id="close">X</button>
+        </div>
+    </header>
+    <nav>
+        <span id="title">𝙿𝚕𝚊𝚢ℕ<a style="color: #dae695; text-decoration: underline">𝙲𝚘𝚍𝚎</a></span>
+        <div id="search"><input type="search" placeholder="search"></div>
+        <div class="third-part-of-nav">
+            <div class="dropdown">
+                <button class="dropdown-button">Arduino Uno</button>
+                <div class="dropdown-content">
+                    <a href="#option1">Arduino Uno</a>
+                    <a href="#option2">Arduino Nano</a>
+                    <a href="#option3">Arduino Mega</a>
+                    <a href="#option4">Arduino Leonardo</a>
+                    <a href="#option5">Arduino Due</a>
+                    <a href="#option6">Arduino Micro</a>
+                    <a href="#option7">Arduino Pro Mini</a>
+                    <a href="#option8">Arduino MKR Series</a>
+                    <a href="#option9">Arduino Zero</a>
+                    <a href="#option10">Arduino Nano 33 Series</a>
+                    <a href="#option11">Arduino Portenta Series</a>
+                    <a href="#option12">Arduino Yun</a>
+                    <a href="#option13">Arduino Industrial 101</a>
+                </div>
+            </div>
+            <img src="images/about.svg" alt="about board" id="about-board">
+            <button onclick="getSortedClonedElementsWithId() , hideRunbtn()" id="getSortedClonedElementsWithId">
+                <strong>compile</strong>
+                <img src="images/play.svg" alt="Run">
+            </button>
+            <button id="runPythonButton" onclick="hideUploadbtn()">
+                <strong>Upload</strong>
+                <img src="images/upload.svg" alt="Upload">
+            </button>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="convention">
+            <!-- <div id="fr" name="for_loop" class="clonedElement conventions-element" onclick="cloneElement('fr', 'workspace')">
+                <span>Repeat</span>
+                <input type="number" class="input" value="5" />
+            </div>
+            <div id="e" name="close" class="clonedElement" onclick="cloneElement('e', 'workspace')">End loop</div> -->
+            <div id="bh" name="bulb-on" class="clonedElement conventions-element" onclick="cloneElement('bh', 'workspace')">
+                <sapn>Bulb on</sapn>
+                <input type="number" min="2" max="13" class="input" value="4" />
+            </div>
+            <div id="bl" name="bulb-of" class="clonedElement conventions-element" onclick="cloneElement('bl', 'workspace')">
+                <span>Bulb off</span>
+                <input type="number" min="2" max="13" class="input" value="4" />
+            </div>
+            <div id="bzh" name="BuzzerOn" class="clonedElement conventions-element" onclick="cloneElement('bzh', 'workspace')">
+                <sapn>Buzzer on</sapn>
+                <input type="number" min="2" max="13" class="input" value="3" />
+            </div>
+            <div id="bzl" name="BuzzerOf" class="clonedElement conventions-element" onclick="cloneElement('bzl', 'workspace')">
+                <span>Buzzer off</span>
+                <input type="number" min="2" max="13" class="input" value="3" />
+            </div>
+            <div id="wt" name="wait" class="clonedElement conventions-element" onclick="cloneElement('wt', 'workspace')">
+                <span>wait</span>
+                <input type="number" id="wtInput" class="input" value="1000" />
+            </div>
+            <div id="rd" name="random" class="clonedElement conventions-element" onclick="cloneElement('rd', 'workspace')">random</div>
+            <div id="cb" name="set-brightness" class="clonedElement conventions-element" onclick="cloneElement('cb', 'workspace')">
+                <span>Set Brightness</span>
+                <input type="number" id="cbInput" class="input" value="1000" />
+            </div>
+        </div>
+        <div id="workspace"></div>
+        <div id="fileArea">
+            <div id="codes">
+                <span id="Code_btn">Code</span>
+                <!-- <button id="Copy_btn"></button> -->
+                <img src="images/menu.svg" alt="Copy_btn">
+            </div>
+            <div id="string"></div>
+        </div>
+    </div>
+</body>
+<script>
+    const { ipcRenderer } = require('electron');
+    
+    // Get references to DOM elements
+    const textElement = document.getElementById('string');
+    const runButton = document.getElementById('runPythonButton');
+
+    // Add click event listener to the button
+    runButton.addEventListener('click', () => {
+        const domText = textElement.innerText;
+
+        // Send the DOM text to the main process to run the Python script
+        ipcRenderer.send('run-python', domText);
+    });
+
+    //Toggle function for btn switching
+    function hideRunbtn() {
+        document.getElementById("getSortedClonedElementsWithId").style.display = 'none';
+        document.getElementById("runPythonButton").style.display = 'flex';
+    }
+
+    function hideUploadbtn() {
+        document.getElementById("getSortedClonedElementsWithId").style.display = 'flex';
+        document.getElementById("runPythonButton").style.display = 'none';
+    }
+</script>
+</html>
