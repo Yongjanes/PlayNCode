@@ -1,1 +1,1 @@
-To run this app use command "npx electron ."
+To run this app use command `npx electron .`
